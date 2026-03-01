@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cmd="${1:-help}"
+shift 2>/dev/null || true
+
+case "$cmd" in
+  build)
+    go build ./...
+    ;;
+  test)
+    go test ./... -v -count=1
+    ;;
+  vet)
+    go vet ./...
+    ;;
+  lint)
+    go vet ./...
+    echo "lint passed"
+    ;;
+  clean)
+    go clean ./...
+    ;;
+  bench)
+    go test ./... -bench=. -benchmem -count=3
+    ;;
+  differ)
+    go run ./cmd/differ "$@"
+    ;;
+  all)
+    go build ./...
+    go vet ./...
+    go test ./... -v -count=1
+    ;;
+  help|*)
+    echo "usage: ./run <command> [args]"
+    echo ""
+    echo "commands:"
+    echo "  build    go build ./..."
+    echo "  test     go test ./... -v"
+    echo "  vet      go vet ./..."
+    echo "  lint     vet + lint passed"
+    echo "  clean    go clean ./..."
+    echo "  bench    benchmarks with -benchmem"
+    echo "  differ   run differ CLI (flags passed through to cmd/differ)"
+    echo "  all      build + vet + test"
+    echo ""
+    echo "differ usage:"
+    echo "  ./run differ a.json b.json"
+    echo "  ./run differ -left a.json -right b.json"
+    echo "  ./run differ -left-input '{\"a\":1}' -right-input '{\"a\":2}'"
+    echo "  ./run differ a.json b.json -pretty -format patch"
+    ;;
+esac
