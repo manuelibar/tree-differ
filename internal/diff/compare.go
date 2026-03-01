@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"sort"
 
-	"github.com/mibar/jsonpath"
+	"github.com/mibar/jsonpath/pkg/jsonpath"
 )
 
 // Compare produces a list of changes between two parsed JSON trees.

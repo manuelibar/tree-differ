@@ -7,7 +7,7 @@ import (
 	"math"
 	"sort"
 
-	"github.com/mibar/jsonpath"
+	"github.com/mibar/jsonpath/pkg/jsonpath"
 )
 
 type nodeKind int

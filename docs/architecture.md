@@ -58,9 +58,10 @@ The flat `[]Change` list is formatted into one of five output formats:
 ## Package boundaries
 
 ```
-cmd/differ/         CLI: flag parsing, I/O, exit codes
-pkg/differ/         Public API: Diff(), Compile(), options, wire format
-internal/diff/      Core: snapshot, compare, format, filter, path
+cmd/differ/                            CLI: flag parsing, I/O, exit codes
+pkg/differ/                            Public API: Diff(), Compile(), options, wire format
+internal/diff/                         Core: snapshot, compare, format, filter, path
+github.com/mibar/jsonpath/pkg/jsonpath PathBuilder for JSONPath-annotated change paths
 ```
 
-`pkg/differ` is a thin layer that parses JSON, delegates to `internal/diff`, and exposes type aliases. All algorithmic logic lives in `internal/diff`.
+`pkg/differ` is a thin layer that parses JSON, delegates to `internal/diff`, and exposes type aliases. All algorithmic logic lives in `internal/diff`. JSONPath string construction uses `PathBuilder` from the standalone `github.com/mibar/jsonpath` module.
